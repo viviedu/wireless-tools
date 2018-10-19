@@ -125,16 +125,24 @@ function parse_cell(cell) {
   }
 
   if ((match = cell.match(/RSN:[\s*]+Version: 1/))) {
-    parsed.security = 'wpa2';
+    if ((match = cell.match(/Authentication suites: PSK/))) {
+      parsed.security = 'WPA-PSK';
+    }
+    else if ((match = cell.match(/Authentication suites: IEEE 802.1X/))) {
+      parsed.security = 'WPA-EAP';
+    }
+    else {
+      parsed.security = 'WPA2';
+    }
   }
   else if ((match = cell.match(/WPA:[\s*]+Version: 1/))) {
-    parsed.security = 'wpa';
+    parsed.security = 'WPA1';
   }
   else if ((match = cell.match(/capability: ESS Privacy/))) {
-    parsed.security = 'wep';
+    parsed.security = 'WEP';
   }
   else if ((match = cell.match(/capability: ESS/))) {
-    parsed.security = 'open';
+    parsed.security = 'NONE';
   }
   return parsed;
 }

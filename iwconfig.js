@@ -95,6 +95,10 @@ function parse_status_block(block) {
     parsed.unassociated = true;
   }
 
+  if ((match = block.match(/Bit Rate[:|=]\s*([0-9\.]+)/))) {
+    parsed.bitrate = parseFloat(match[1]);
+  }
+
   return parsed;
 }
 

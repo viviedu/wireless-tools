@@ -196,5 +196,5 @@ function scan(options, callback) {
     var show_hidden = options.show_hidden || false;
   }
 
-  this.exec('iw dev ' + interface + ' scan', parse_scan(show_hidden, callback));
+  this.exec('iw dev ' + interface + ' scan', { maxBuffer: Infinity }, parse_scan(show_hidden, callback));
 }
